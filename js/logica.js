@@ -18,9 +18,39 @@ function generate(action) {
 
       detalleResult += '<br><span style="color: white;">TOTAL: $' + (mounthsSelected.length * 15000).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,') + '</span>';
 
-      var copyText = action == 'factura' ? baseMailFactura.replace('{{titulo}}', 'Deuda activa con el fondo').replace('{{mensaje}}', employeeSelected + ', tienes una deuda con el fondo de E-DEAS vigente la cuál abarca los siguientes meses.').replace('{{detalle}}', detalleResult) : baseMailConstancia.replace('{{employeeName}}', employeeSelected).replace('{{detalle}}', detalleResult);
+      var bodyMail = null;
+      var subject = null;
+
+      if (action == 'factura') {
+      	bodyMail = baseMailFactura
+      							.replace('{{titulo}}', 'Deuda activa con el fondo')
+								.replace('{{mensaje}}', employeeSelected + ', tienes una deuda con el fondo de E-DEAS vigente la cuál abarca los siguientes meses.')
+								.replace('{{detalle}}', detalleResult);
+
+		subject = "<F-EDEAS> Cuota F-DEAS";
+
+      } else {
+      	bodyMail = baseMailConstancia
+      							.replace('{{employeeName}}', employeeSelected)
+      							.replace('{{detalle}}', detalleResult);
+
+		subject = "<F-DEAS> Constancia de pago F-EDEAS";
+
+      }
       
-      copyToClipboard(copyText);
+		Email.send({
+		    Host : "smtp.gmail.com",
+		    Username : "fondoempleadosedeas@gmail.com",
+		    Password : "fedeasP4ssword",
+		    To : 'simon.bustamante@e-deas.com.co',
+		    From : "fondoempleadosedeas@gmail.com",
+		    Subject : subject,
+		    Body : bodyMail
+		}).then(
+		  message => alert(message)
+		);
+
+      copyToClipboard(bodyMail);
       
       Swal.fire(
           'Factura de ' + employeeSelected + ' generada y copiada',
@@ -36,7 +66,7 @@ function generate(action) {
   }    
 }
 
-function copyToClipboard(copyText) {
+function copyToClipboard(bodyMail) {
 
     // Create a dummy input to copy the string array inside it
     var dummy = document.createElement("input");
@@ -48,7 +78,7 @@ function copyToClipboard(copyText) {
     dummy.setAttribute("id", "dummy_id");
 
     // Output the array into it
-    document.getElementById("dummy_id").value = copyText;
+    document.getElementById("dummy_id").value = bodyMail;
 
     // Select it
     dummy.select();
