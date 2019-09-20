@@ -1,0 +1,49 @@
+body,h1 {font-family: "Raleway", sans-serif}
+body, html {height: 100%}
+.bgimg {
+  background: #97bd0d;
+  min-height: 100%;
+  background-position: center;
+  background-size: cover;
+}
+a.actions {
+  background: #015191;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px;
+  color: white;
+}
+.contForm {
+	margin-top: 10px; 
+}
+.display-middle{
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    -ms-transform: translate(-50%,-50%);
+}
+h1.Title {
+  font-size: 35px;
+}
+.contmounths {
+  display: flex;
+}
+.contmounths>input {
+  margin-left: 10px!important;
+}
+a.actions {
+  background: #015191;
+  text-decoration: none;
+  padding: 10px;
+  border-radius: 8px;
+  margin: 5px;
+  color: white;
+}
+#contActions {
+  padding: 16px;
+}
+#empleadosList {
+  margin-bottom: 10px;
+}

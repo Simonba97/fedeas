@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<title>GENERADOR DE F-DEAS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+<link rel="stylesheet" href="css/style.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script
+  src="https://code.jquery.com/jquery-3.4.1.js"
+  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
+  crossorigin="anonymous"></script>
+<script src="js/logica.js"></script>
+
+<body>
+<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
+  <div class="w3-display-topleft w3-padding-large w3-xlarge">
+    <img id="logoEdeas" style="width: 30%;" src="http://www.e-deas.com.co/images/logos/logo_edeas_negativo_trans.png" alt="E-EDEAS Logo">
+  </div>
+  <div class="w3-display-middle" style="text-align: center;">
+    <h1 class="w3-animate-top">CONSTANCIA DE PAGO</h1>
+    <hr class="w3-border-grey" style="margin:auto;width:40%">
+    <div class="contForm">
+      <select id="empleadosList">
+        <option value="Paulita">Paulita</option>
+        <option value="Patricia">Patricia</option>
+        <option value="Álvaro">Álvaro</option>
+        <option value="Jairo">Jairo</option>
+        <option value="Virgilio">Virgilio</option>
+        <option value="Diego">Diego</option>
+        <option value="Fredy Fredy">Jonn Fredy</option>
+        <option value="Clarita">Clarita</option>
+        <option value="Mateo">Mateo</option>
+        <option value="Simón">Simón</option>
+        <option value="Marcela">Marcela</option>
+        <option value="Miguel">Miguel</option>
+      </select>      
+      <div class="contmounths">
+        <input type="radio" name="enero" value="Enero"> Enero<br>
+        <input type="radio" name="febrero" value="Febrero"> Febrero<br>
+        <input type="radio" name="marzo" value="Marzo"> Marzo<br>
+        <input type="radio" name="abril" value="Abril"> Abril<br>
+      </div>
+      <div class="contmounths">
+        <input type="radio" name="mayo" value="Mayo"> Mayo<br>
+        <input type="radio" name="junio" value="Junio"> Junio<br>
+        <input type="radio" name="julio" value="Julio"> Julio<br>
+        <input type="radio" name="agosto" value="Agosto"> Agosto<br>       
+      </div>
+      <div class="contmounths">
+        <input type="radio" name="septiembre" value="Septiembre"> Septiembre<br>
+        <input type="radio" name="octubre" value="Octubre"> Octubre<br>
+        <input type="radio" name="noviembre" value="Noviembre"> Noviembre<br>
+        <input type="radio" name="diciembre" value="Diciembre"> Diciembre<br>          
+      </div>
+       <br>
+      <a href="#" onclick="generate('factura')" style="margin-top: 10px" class="actions" id="generar">GENERAR</a>
+      <a href="constancia.html" class="actions">CONSTANCIA DE PAGO</a>
+    </div>
+  </div>
+</div>
+</body>
+</html>
