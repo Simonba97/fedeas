@@ -8,7 +8,9 @@ var mounthsSelected = null;
 
 function generate(action) {
 
-  employeeSelected = $('#empleadosList').val();
+  infoEmployeeSelected = $('#empleadosList').val().split(';;');
+  var mailEmployee = infoEmployeeSelected[0];
+  var nameEmployee = infoEmployeeSelected[1];
   mounthsSelected = $("input[type=radio]:checked");
 
   if (mounthsSelected.length > 0) {
@@ -24,14 +26,14 @@ function generate(action) {
       if (action == 'factura') {
       	bodyMail = baseMailFactura
       							.replace('{{titulo}}', 'Deuda activa con el fondo')
-								.replace('{{mensaje}}', employeeSelected + ', tienes una deuda con el fondo de E-DEAS vigente la cuál abarca los siguientes meses.')
+								.replace('{{mensaje}}', nameEmployee + ', tienes una deuda con el fondo de E-DEAS vigente la cuál abarca los siguientes meses.')
 								.replace('{{detalle}}', detalleResult);
 
 		subject = "<F-EDEAS> Cuota F-DEAS";
 
       } else {
       	bodyMail = baseMailConstancia
-      							.replace('{{employeeName}}', employeeSelected)
+      							.replace('{{employeeName}}', nameEmployee)
       							.replace('{{detalle}}', detalleResult);
 
 		subject = "<F-DEAS> Constancia de pago F-EDEAS";
@@ -42,7 +44,7 @@ function generate(action) {
 		    Host : "smtp.gmail.com",
 		    Username : "fondoempleadosedeas@gmail.com",
 		    Password : "fedeasP4ssword",
-		    To : 'simon.bustamante@e-deas.com.co',
+		    To : mailEmployee,
 		    From : "fondoempleadosedeas@gmail.com",
 		    Subject : subject,
 		    Body : bodyMail
@@ -53,14 +55,14 @@ function generate(action) {
       copyToClipboard(bodyMail);
       
       Swal.fire(
-          'Factura de ' + employeeSelected + ' generada y copiada',
-          'Ahora puedes ir a enviarle el correo a ' + employeeSelected,
+          'Factura de ' + nameEmployee + ' generada y copiada',
+          'Ahora puedes ir a enviarle el correo a ' + nameEmployee,
           'success'
       )
   } else {
       Swal.fire(
           'Error',
-          'Debes seleccionar los meses que debe ' + employeeSelected,
+          'Debes seleccionar los meses que debe ' + nameEmployee,
           'error'
       )
   }    
