@@ -3,59 +3,58 @@
 <title>GENERADOR DE F-DEAS</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="css/style.css">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script src="https://smtpjs.com/v3/smtp.js"></script>
-<script
-  src="https://code.jquery.com/jquery-3.4.1.js"
-  integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU="
-  crossorigin="anonymous"></script>
-<script src="js/logica.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/logica.js"></script>
 
 <body>
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    <img id="logoEdeas" style="width: 30%;" src="http://www.e-deas.com.co/images/logos/logo_edeas_negativo_trans.png" alt="E-EDEAS Logo">
-  </div>
-  <div class="w3-display-middle" style="text-align: center;">
-    <h1 class="w3-animate-top">CONSTANCIA DE PAGO</h1>
-    <hr class="w3-border-grey" style="margin:auto;width:40%">
-    <div class="contForm">
-      <select id="empleadosList">
-        <option value="paula.campo@e-deas.com.co;;Paulita">Paulita</option>
-        <option value="patricia.parra@e-deas.com.co;;Patricia">Patricia</option>
-        <option value="alvaro.parra@e-deas.com.co;;Álvaro">Álvaro</option>
-        <option value="jairo.baleta@e-deas.com.co;;Jairo">Jairo</option>
-        <option value="virgilio.parra@e-deas.com.co;;Virgilio">Virgilio</option>
-        <option value="diego.campo@e-deas.com.co;;Diego">Diego</option>
-        <option value="johnfredy.torres@e-deas.com.co;;Jonn Fredy">Jonn Fredy</option>
-        <option value="clara.salazar@e-deas.com.co;;Clarita">Clarita</option>
-        <option value="mateo.gomez@e-deas.com.co;;Mateo">Mateo</option>
-        <option value="simon.bustamante@e-deas.com.co;;Simón">Simón</option>
-        <option value="marcela.suarez@e-deas.com.co;;Marcela">Marcela</option>
-        <option value="miguel.henao@e-deas.com.co;;Miguel">Miguel</option>
-      </select>      
-      <div class="contmounths">
-        <input type="checkbox" name="mounths" value="Enero"> Enero<br>
-        <input type="checkbox" name="mounths" value="Febrero"> Febrero<br>
-        <input type="checkbox" name="mounths" value="Marzo"> Marzo<br>
-        <input type="checkbox" name="mounths" value="Abril"> Abril<br>
-        <input type="checkbox" name="mounths" value="Mayo"> Mayo<br>
-        <input type="checkbox" name="mounths" value="Junio"> Junio<br>
-        <input type="checkbox" name="mounths" value="Julio"> Julio<br>
-        <input type="checkbox" name="mounths" value="Agosto"> Agosto<br>       
-        <input type="checkbox" name="mounths" value="Septiembre"> Septiembre<br>
-        <input type="checkbox" name="mounths" value="Octubre"> Octubre<br>
-        <input type="checkbox" name="mounths" value="Noviembre"> Noviembre<br>
-        <input type="checkbox" name="mounths" value="Diciembre"> Diciembre<br>          
-      </div>
-       <br>
-      <a href="#" onclick="generate('factura')" style="margin-top: 10px" class="actions" id="generar">GENERAR</a>
-      <a href="constancia.html" class="actions">CONSTANCIA DE PAGO</a>
+    <div id="contenedorGlobal">
+        <div id="contenedor" class="display-middle">
+            <p><img class="logoEdeas" data-imagetype="External" src="https://i.imgur.com/z141PXF.png" alt="Logo E-DEAS">
+            </p>
+            <p>
+                <span class="titulo">GENERAR FACTURA DE COBRO.</span>
+                <br>
+                <span class="descripcion">Selecciona el empleado y marca los meses que <span class="resaltar">adeuda</span> en el fondo de empleados.</span>
+            </p>
+            <hr class="w3-border-grey" style="margin:auto;width:40%">
+            <div id="contDetalle" style="padding:5px; color:#222; font-weight: bold">
+                <select id="empleadosList">
+                    <option value="paula.campo@e-deas.com.co;;Paulita">Paulita</option>
+                    <option value="patricia.parra@e-deas.com.co;;Patri">Patri</option>
+                    <option value="alvaro.parra@e-deas.com.co;;Don Álvaro">Álvaro</option>
+                    <option value="jairo.baleta@e-deas.com.co;;Don Jairo">Jairo</option>
+                    <option value="virgilio.parra@e-deas.com.co;;Don Virgilio">Virgilio</option>
+                    <option value="diego.campo@e-deas.com.co;;Diego">Diego</option>
+                    <option value="johnfredy.torres@e-deas.com.co;;Jonn Fredy">Jonn Fredy</option>
+                    <option value="clara.salazar@e-deas.com.co;;Doña Clara">Clarita</option>
+                    <option value="mateo.gomez@e-deas.com.co;;Mateo">Mateo</option>
+                    <option value="simon.bustamante@e-deas.com.co;;Simón">Simón</option>
+                    <option value="marcela.suarez@e-deas.com.co;;Marcela">Marcela</option>
+                    <option value="miguel.henao@e-deas.com.co;;Miguel">Miguel</option>
+                </select>
+                <br>
+                <br>
+                <div class="contmounths">
+                    <input type="checkbox" name="mounths" value="Enero"> Enero
+                    <input type="checkbox" name="mounths" value="Febrero"> Febrero
+                    <input type="checkbox" name="mounths" value="Marzo"> Marzo
+                    <input type="checkbox" name="mounths" value="Abril"> Abril 
+                    <input type="checkbox" name="mounths" value="Mayo"> Mayo<br>
+                    <input type="checkbox" name="mounths" value="Junio"> Junio
+                    <input type="checkbox" name="mounths" value="Julio"> Julio
+                    <input type="checkbox" name="mounths" value="Agosto"> Agosto  <br>
+                    <input type="checkbox" name="mounths" value="Septiembre"> Septiembre
+                    <input type="checkbox" name="mounths" value="Octubre"> Octubre
+                    <input type="checkbox" name="mounths" value="Noviembre"> Noviembre<br>
+                    <input type="checkbox" name="mounths" value="Diciembre"> Diciembre
+                </div><br>
+                <a href="#" onclick="generate('factura')" style="margin-top: 10px" class="actions" id="generar">GENERAR</a>
+            </div>
+        </div>
     </div>
-  </div>
-</div>
 </body>
+
 </html>

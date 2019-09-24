@@ -3,23 +3,28 @@
 <title>GENERADOR DE F-DEAS</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
 <link rel="stylesheet" href="css/style.css">
-<body>
+<script src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script src="js/logica.js"></script>
 
-<div class="bgimg w3-display-container w3-animate-opacity w3-text-white">
-  <div class="w3-display-topleft w3-padding-large w3-xlarge">
-    <img style="width: 30%;" src="http://www.e-deas.com.co/images/logos/logo_edeas_negativo_trans.png" alt="E-EDEAS Logo">
-  </div>
-  <div class="w3-display-middle" style="text-align: center;">
-    <h1 class="w3-jumbo w3-animate-top">F-EDEAS</h1>
-    <hr class="w3-border-grey" style="margin:auto;width:40%">
-	<div id="contActions">
-		<a href="factura.html" class="actions">FACTURA MENSUAL</a> 
-		<a href="constancia.html" class="actions">CONSTANCIA DE PAGO</a>
-	</div>
-  </div>
-</div>
+<body>
+    <div id="contenedorGlobal">
+        <div id="contenedor" class="display-middle">
+            <p><img class="logoEdeas" data-imagetype="External" src="https://i.imgur.com/z141PXF.png" alt="Logo E-DEAS">
+            </p>
+            <p>
+                <span class="titulo">Gestor de F-DEAS.</span>
+                <br>
+                <span class="descripcion">Generador de correos de facturación y comprobantes de pago de cartera del fondo.</span>
+            </p>
+            <hr class="w3-border-grey" style="margin:auto;width:40%">
+            <div class="contActions">
+                <a href="factura.html" class="actions">FACTURA MENSUAL</a>
+                <span> - </span>
+                <a href="constancia.html" class="actions">CONSTANCIA DE PAGO</a>
+            </div>
+        </div>
+    </div>
 </body>
+
 </html>
