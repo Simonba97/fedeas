@@ -1,53 +1,91 @@
 body {
   background: #f2f2f2;
 }
-.display-middle{
+
+.display-middle {
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%,-50%);
-  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
 }
+
 .logoEdeas {
   width: 60%;
 }
-a.actions{
-  text-decoration: none;  
-  color:#222; font-weight: bold
+
+a.actions {
+  text-decoration: none;
+  color: #222;
+  font-weight: bold
 }
+
 div#contDetalle {
   text-align: center;
 }
-select#empleadosList{
+
+select#empleadosList {
   margin-top: 12px;
 }
-.resaltar{
+
+.resaltar {
   background-color: rgb(255, 241, 0);
   color: black;
-} 
-img.logoEdeas:hover{
-  cursor: pointer;
-}
-#contenedorGlobal{
-  font-size:16px; line-height:20px; color:#6c6c6c; background:#f2f2f2; padding:0; margin:0; font-family:Arial,sans-serif!important; width:100%!important
-}
-#contenedor{
-  padding:10px; max-width:400px; font-size:16px; line-height:22px; color:#6c6c6c; background:#f2f2f2; font-family:Arial,sans-serif!important; margin: 0 auto;
 }
 
-#contenedor>p{
-  padding:5px; text-align: center;
+img.logoEdeas:hover {
+  cursor: pointer;
 }
-span{
+
+#contenedorGlobal {
+  font-size: 16px;
+  line-height: 20px;
+  color: #6c6c6c;
+  background: #f2f2f2;
+  padding: 0;
+  margin: 0;
+  font-family: Arial, sans-serif!important;
+  width: 100%!important
+}
+
+#contenedor {
+  padding: 10px;
+  max-width: 400px;
+  font-size: 16px;
+  line-height: 22px;
+  color: #6c6c6c;
+  background: #f2f2f2;
+  font-family: Arial, sans-serif!important;
+  margin: 0 auto;
+}
+
+#contenedor>p {
+  padding: 5px;
+  text-align: center;
+}
+
+span {
   color: #222;
 }
+
 span.titulo {
   font-weight: bold;
 }
+
 span.descripcion {
   font-style: italic;
 }
-.contActions{
+
+.contActions {
   padding: 5px;
   margin-top: 10px;
+}
+#contOthers>input {
+  display: none;
+}
+
+@media (min-width: 320px) and (max-width: 480px) {
+  .contenedor {
+    width: 90%;
+  }
 }
