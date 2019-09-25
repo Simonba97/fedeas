@@ -84,8 +84,9 @@ span.descripcion {
   display: none;
 }
 
-@media (min-width: 320px) and (max-width: 480px) {
-  .contenedor {
+/* Movil */
+@media screen and (max-width: 992px){
+  #contenedor {
     width: 90%;
   }
 }
