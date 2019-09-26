@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<title>GENERADOR DE F-DEAS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/style.css">
+<link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+<script src="https://smtpjs.com/v3/smtp.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+<script type="text/javascript" src="js/logica.js"></script>
+
+<body>
+    <div id="contenedorGlobal">
+        <div id="contenedor" class="display-middle">
+            <p><img class="logoEdeas" data-imagetype="External" src="https://i.imgur.com/z141PXF.png" alt="Logo E-DEAS">
+            </p>
+            <p>
+                <span class="titulo">NOTIFICAR A EMPLEADO(S).</span>
+                <br>
+                <span class="descripcion">Selecciona el/los empleado(s) para enviar el comunicado</span>
+            </p>
+            <hr class="w3-border-grey" style="margin:auto;width:40%">
+            <div id="contDetalle" style="padding:5px; color:#222; font-weight: bold">
+                <select id="empleadosList" >
+                    <option value="paula.campo@e-deas.com.co;;Paulita">Paulita</option>
+                    <option value="patricia.parra@e-deas.com.co;;Patri">Patri</option>
+                    <option value="alvaro.parra@e-deas.com.co;;Don Álvaro">Álvaro</option>
+                    <option value="jairo.baleta@e-deas.com.co;;Don Jairo">Jairo</option>
+                    <option value="virgilio.parra@e-deas.com.co;;Don Virgilio">Virgilio</option>
+                    <option value="diego.campo@e-deas.com.co;;Diego">Diego</option>
+                    <option value="johnfredy.torres@e-deas.com.co;;Jonn Fredy">Jonn Fredy</option>
+                    <option value="clara.salazar@e-deas.com.co;;Doña Clara">Clarita</option>
+                    <option value="mateo.gomez@e-deas.com.co;;Mateo">Mateo</option>
+                    <option value="simon.bustamante@e-deas.com.co;;Simón">Simón</option>
+                    <option value="marcela.suarez@e-deas.com.co;;Marcela">Marcela</option>
+                    <option value="miguel.henao@e-deas.com.co;;Miguel">Miguel</option>
+                </select>
+                <input id="checkSendMailAllEmployees" type="checkbox" name="todosEmpleados" value="notificarTodos"><span class="descripcion" style="font-weight: normal;">Todos</span>
+                <br>
+                <br>
+                <div class="contmounths">
+                    <input id="subjectMail" type="text" placeholder="Ingrese asunto">
+                    <textarea id="bodyMail" placeholder="Ingrese el comunicado que desea enviar"></textarea>    
+                </div>
+       <!--          <div id="contOthers">
+                    <a href="#">AGREGAR OTRO GASTO</a>
+                    <input type="text" id="nameOther" placeholder="Descripción deuda"> <input type="text" id="valueOther" placeholder="Valor deuda">
+                </div> -->
+                <br><hr class="w3-border-grey" style="margin:auto;width:40%"><br>
+
+                <a href="#" onclick="sendMail()" style="margin-top: 10px" class="actions" id="sendMail">ENVIAR</a>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

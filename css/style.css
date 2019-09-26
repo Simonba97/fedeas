@@ -15,7 +15,7 @@ body {
 }
 
 a.actions {
-  text-decoration: none;
+  /*text-decoration: none;*/
   color: #222;
   font-weight: bold
 }
@@ -77,16 +77,28 @@ span.descripcion {
 }
 
 .contActions {
+  text-align: center;
   padding: 5px;
   margin-top: 10px;
 }
 #contOthers>input {
   display: none;
 }
+textarea{
+  width: 390px;
+  height: 140px;
+  margin: 0;
+}
 
 /* Movil */
 @media screen and (max-width: 992px){
   #contenedor {
     width: 90%;
+  }
+  input#subjectMail{
+    margin-bottom: 10px;
+  }
+  textarea {
+    width: 96%;
   }
 }
