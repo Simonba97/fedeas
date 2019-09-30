@@ -12,6 +12,10 @@ function addEvents() {
         window.location.href = 'index.html';
     });
 
+    $('#otherField').click(function() {
+        $('#contOthers').append('<br><input type="text" class="nameOtherField" placeholder="Descripción deuda"> <input type="text" class="valueOtherField" placeholder="Valor deuda">');
+    });    
+
     $('#checkSendMailAllEmployees').change(function() {
         _allSendMailAllEmployees = !_allSendMailAllEmployees;
         if (_allSendMailAllEmployees) $('#empleadosList').hide();
@@ -62,6 +66,21 @@ function generate(action) {
                 listMouths += detalleBase.replace('{{mounthName}}', mounth.value);
             });
 
+            // var namesOtherFieldsValues = $('.nameOtherField');
+            // var valuesOtherFieldsValues = $('.valueOtherField');
+
+            // var otherFieldsResult = [];
+
+            // if (namesOtherFieldsValues) {
+            //     otherFieldsResult.push(`<br>OTROS GASTOS`); 
+            //     $.each(namesOtherFieldsValues, function(i, val) {
+            //         otherFieldsResult.push(`${namesOtherFieldsValues[i].value}: ${valuesOtherFieldsValues[i].value}`);
+            //     });     
+            //     otherFieldsResult = otherFieldsResult.join('<br>');
+            // }
+
+            // console.log(otherFieldsResult);
+            
             var bodyMail = null;
             var subject = null;
 
@@ -106,8 +125,6 @@ function generate(action) {
                 subject = `<F-DEAS> Constancia de pago F-EDEAS (${[today.getDate(),today.getMonth()+1,today.getFullYear()].join('/')})`;
 
             }
-
-            copyToClipboard(bodyMail);
 
             Email.send({
                 Host: "smtp.gmail.com",

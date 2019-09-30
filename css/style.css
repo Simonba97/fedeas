@@ -81,9 +81,9 @@ span.descripcion {
   padding: 5px;
   margin-top: 10px;
 }
-#contOthers>input {
+/*#contOthers>input {
   display: none;
-}
+}*/
 textarea{
   width: 390px;
   height: 140px;
