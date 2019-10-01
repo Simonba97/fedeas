@@ -36,11 +36,12 @@ select#empleadosList {
   background-color: rgb(255, 241, 0);
   color: black;
 }
-
+.deleteRow {
+  margin-left: 5px;
+}
 img.logoEdeas:hover {
   cursor: pointer;
 }
-
 #contenedorGlobal {
   font-size: 16px;
   line-height: 20px;
@@ -92,6 +93,10 @@ textarea{
   width: 390px;
   height: 140px;
   margin: 0;
+}
+
+div.othersValues {
+  display: none;
 }
 
 /* Movil */
