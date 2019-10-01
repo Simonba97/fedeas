@@ -3,6 +3,7 @@ jQuery(document).ready(function() {
 });
 
 var _allSendMailAllEmployees = false;
+var _allSendMailNoIntegrantes = false;
 var _password = "adminFedeas";
 var _ma = "fedeas@e-deas.com.co";
 var _ps = "fondofedeas";
@@ -13,14 +14,34 @@ function addEvents() {
     });
 
     $('#otherField').click(function() {
-        $('#contOthers').append('<br><input type="text" class="nameOtherField" placeholder="Descripción deuda"> <input type="text" class="valueOtherField" placeholder="Valor deuda">');
-    });    
+        $('#otherField').before('<input type="text" class="descriptionOtherField" placeholder="Descripción deuda"> $<input type="number" class="valueOtherField" placeholder="Valor deuda">');
+    });
 
     $('#checkSendMailAllEmployees').change(function() {
         _allSendMailAllEmployees = !_allSendMailAllEmployees;
         if (_allSendMailAllEmployees) $('#empleadosList').hide();
         else $('#empleadosList').show();
     });
+
+    $('#checkSendMailNoIntegrantesFedeas').change(function() {
+        _allSendMailNoIntegrantes = !_allSendMailNoIntegrantes;
+        if (_allSendMailNoIntegrantes) {
+            // Escondemos check de enviar notificacion a todos
+            $('#checkSendMailAllEmployees').hide();
+            // Escondemos los integrantes de FEDEAS en la lista
+            // Y mostramos los no integrantes de FEDEAS
+            $('.integranteFEDEAS').hide();
+            $('.noIntegranteFEDEAS').show().first().prop('selected', true);
+        } else {
+            // Escondemos check de enviar notificacion a todos
+            $('#checkSendMailAllEmployees').show();
+            // mostramos los integrantes de FEDEAS en la lista
+            // Y Escondemos los no integrantes de FEDEAS
+            $('.integranteFEDEAS').show().first().prop('selected', true);
+            $('.noIntegranteFEDEAS').hide();
+        }
+    });
+
 }
 
 function validateCredentials() {
@@ -80,7 +101,7 @@ function generate(action) {
             // }
 
             // console.log(otherFieldsResult);
-            
+
             var bodyMail = null;
             var subject = null;
 
@@ -164,8 +185,97 @@ function generate(action) {
         }
     } else {
         showBadCredentials();
-    }    
+    }
 }
+
+/**
+ * Nos permite enviar una factura a los empleados que no son integrantes de F-EDEAS
+ */
+function generarFacturaNoIntegrante() {
+    if (validateCredentials()) {
+        var baseMailFactura = '<div style="font-size:16px; line-height:20px; color:#6c6c6c; background:#f2f2f2; padding:0; margin:0; font-family:Arial,sans-serif!important; width:100%!important"> <div style="padding:10px; max-width:400px; font-size:16px; line-height:22px; color:#6c6c6c; background:#f2f2f2; font-family:Arial,sans-serif!important; margin: 0 auto;"> <p style="padding:5px; text-align: center;"><img data-imagetype="External" src="https://i.imgur.com/z141PXF.png" alt="Logo E-DEAS" style="width: 30%;"> </p> <p style="padding:5px"><span style="color:#222; font-weight:bold;">Hola {{nameEmployee}}.</span> <br> <br> {{introduction}} <br> </p> <p style="padding:5px; color:#222; font-weight: bold">{{detalleDeuda}} <span data-markjs="true" class="markrpj0okudo" data-ogac="" data-ogab="" data-ogsc="" data-ogsb="" style="background-color: rgb(255, 241, 0); color: black;">({{total}})</span>: </p> <ul> {{listEvents}} </ul> {{messageAfter}} <span style="font-size:12px; line-height:16px; font-style: italic;">Si esto es un error o si necesitas ayuda con los valores señalados puedes responder este correo o acércate a mi estación de trabajo.</span> <br> {{sectionQR}} <p style="padding:5px; font-weight: bold; font-style: italic; color: #222"> Gracias. <br> <span style="font-size: 13px;">Simón Bustamante Alzate (Administrador F-EDEAS).</span> </p> </div> </div>';
+        var sectionQR = '<p style="padding:5px">Recuerda que puedes realizar el pago de tus aportes. Realizando una transferencia a la cuenta de ahorros: <span data-markjs="true" class="markrpj0okudo" data-ogac="" data-ogab="" data-ogsc="" data-ogsb="" style="background-color: rgb(255, 241, 0); color: black;">00849443011</span> de Bancolombia o utilizando el <span data-markjs="true" class="markrpj0okudo" data-ogac="" data-ogab="" data-ogsc="" data-ogsb="" style="background-color: rgb(255, 241, 0); color: black;">código QR</span> que se anexa justo debajo. </p> <p style="padding:5px"> <img data-imagetype="External" src="https://i.imgur.com/SWAyZcz.png" alt="Código QR" style="width: 98%;"> </p>'
+
+        var introductionMessage_Deudor = 'Actualmente tienes una deuda pendiente con el fondo de empleados de E-DEAS de <span data-markjs="true" class="markrpj0okudo" data-ogac="" data-ogab="" data-ogsc="" data-ogsb="" style="background-color: rgb(255, 241, 0); color: black; font-weight: bold">{{numEventos}} evento(s)</span> sin ser cancelados.'
+        var messageAfter_Deudor = '<p style="padding:5px">Es muy importante que te pongas al día con tu deuda, ya que con este dinero se financian actividades de interés común como las celebraciones de los cumpleaños, la finca anual y demás actividades.</p>'
+
+        var detalleBase = '<li><span>{{events}}</span></li>';
+        var listEvents = '';
+
+        const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
+        const today = new Date();
+        var infoEmployeeSelected = $('#empleadosList').val().split(';;');
+        var mailEmployee = infoEmployeeSelected[0];
+        var nameEmployee = infoEmployeeSelected[1];
+
+        var descriptionOtherFieldsValues = $('.descriptionOtherField');
+        var valuesOtherFieldsValues = $('.valueOtherField');
+
+        var chargeAccount = '';
+        var total = 0;
+
+        if (descriptionOtherFieldsValues) {
+            $.each(descriptionOtherFieldsValues, function(i, val) {
+                chargeAccount += detalleBase.replace('{{events}}', `${descriptionOtherFieldsValues[i].value}: $${parseFloat(valuesOtherFieldsValues[i].value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`);
+                total += parseFloat(valuesOtherFieldsValues[i].value);
+            });
+        }
+
+        var bodyMail = null;
+        var subject = null;
+
+        var introductionMessage;
+        var messageAfter;
+        total = `$${total.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`;
+
+        introductionMessage = introductionMessage_Deudor.replace('{{numEventos}}', descriptionOtherFieldsValues.length);
+        messageAfter = messageAfter_Deudor;
+
+        bodyMail = baseMailFactura
+            .replace('{{total}}', total)
+            .replace('{{nameEmployee}}', nameEmployee)
+            .replace('{{introduction}}', introductionMessage)
+            .replace('{{detalleDeuda}}', 'Detalle de la deuda actual')
+            .replace('{{listEvents}}', chargeAccount)
+            .replace('{{messageAfter}}', messageAfter)
+            .replace('{{sectionQR}}', sectionQR);
+
+        subject = `<F-EDEAS> Cuota F-DEAS (${monthNames[today.getMonth()]})`;
+
+        Email.send({
+            Host: "smtp.gmail.com",
+            Username: _ma,
+            Password: _ps,
+            To: mailEmployee,
+            From: _ma,
+            Subject: subject,
+            Body: bodyMail
+        }).then(function(message) {
+            if (message == 'OK') {
+                Swal.fire(
+                    `Se envió correctamente la factura de cobro a ${nameEmployee}`,
+                    `La factura de cobro se envió correctamente al correo: ${mailEmployee}`,
+                    `success`
+                )
+                // copyToClipboard(bodyMail);
+                clearInfo();
+
+            } else {
+                copyToClipboard(bodyMail);
+                clearInfo();
+                Swal.fire(
+                    `No se logró enviar la ${action} a ${nameEmployee}`,
+                    `La ${action} generada no se pudo enviar por correo a ${nameEmployee} (${mailEmployee}),\nSin embargo se copió en el clipboard para su envio manual`,
+                    `error`
+                )
+            }
+        });
+
+
+    } else {
+        showBadCredentials();
+    }
+} // end generarFacturaNoIntegrante
 
 function sendMail() {
     if (validateCredentials()) {
@@ -175,7 +285,7 @@ function sendMail() {
         var mailEmployee = [];
         var nameEmployee;
         var subject = `<F-EDEAS> ${$('#subjectMail').val()}`;
-        var body = $('#bodyMail').val().replace(/\n/gi,'<br />');
+        var body = $('#bodyMail').val().replace(/\n/gi, '<br />');
 
         if (_allSendMailAllEmployees) {
             $.each($('#empleadosList > option'), function(i, option) {
@@ -188,41 +298,43 @@ function sendMail() {
         }
 
         bodyMail = baseMail
-                    .replace('{{nameEmployee}}', nameEmployee)
-                    .replace('{{introduction}}', body);
+            .replace('{{nameEmployee}}', nameEmployee)
+            .replace('{{introduction}}', body);
+
+        copyToClipboard(bodyMail);
 
         Email.send({
-                Host: "smtp.gmail.com",
-                Username: _ma,
-                Password: _ps,
-                To: mailEmployee,
-                From: _ma,
-                Subject: subject,
-                Body: bodyMail
-            }).then(function(message) {
-                if (message == 'OK') {
-                    Swal.fire(
-                        `¡Listo!`,
-                        `Se envió el correo correctamente`,
-                        `success`
-                    )
-                    // copyToClipboard(bodyMail);
-                    clearInfo();
+            Host: "smtp.gmail.com",
+            Username: _ma,
+            Password: _ps,
+            To: mailEmployee,
+            From: _ma,
+            Subject: subject,
+            Body: bodyMail
+        }).then(function(message) {
+            if (message == 'OK') {
+                Swal.fire(
+                    `¡Listo!`,
+                    `Se envió el correo correctamente`,
+                    `success`
+                )
+                // copyToClipboard(bodyMail);
+                clearInfo();
 
-                } else {
-                    copyToClipboard(bodyMail);
-                    clearInfo();
-                    Swal.fire(
-                        `No se logró enviar el correo`,
-                        `La notificacion generada no se pudo enviar por correo.\nSin embargo se copió en el clipboard para su envio manual`,
-                        `error`
-                    )
-                }
-            });
+            } else {
+                copyToClipboard(bodyMail);
+                clearInfo();
+                Swal.fire(
+                    `No se logró enviar el correo`,
+                    `La notificacion generada no se pudo enviar por correo.\nSin embargo se copió en el clipboard para su envio manual`,
+                    `error`
+                )
+            }
+        });
 
     } else {
         showBadCredentials();
-    }    
+    }
 }
 
 function copyToClipboard(bodyMail) {

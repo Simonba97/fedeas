@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+   <title>GENERADOR DE F-DEAS</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="css/style.css">
+   <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
+   <script src="https://smtpjs.com/v3/smtp.js"></script>
+   <script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.js" integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+   <script type="text/javascript" src="js/logica.js"></script>
+   <body>
+      <div id="contenedorGlobal">
+         <div id="contenedor" class="display-middle">
+            <p><img class="logoEdeas" data-imagetype="External" src="https://i.imgur.com/z141PXF.png" alt="Logo E-DEAS">
+            </p>
+            <p>
+               <span class="titulo">FACTURA DE COBRO <span class="resaltar">NO INTEGRANTES.</span></span>
+               <br>
+               <span class="descripcion">Selecciona el empleado e ingresa el detalle de los valores a pagar al fondo de empleados.</span>
+            </p>
+            <hr class="w3-border-grey" style="margin:auto;width:40%">
+            <div id="contDetalle" style="padding:5px; color:#222; font-weight: bold">
+               <select id="empleadosList">
+                  <option class="noIntegranteFEDEAS" value="german.salazar@e-deas.com.co;;Germán">Germán</option>
+               </select>
+               <br>
+               <br>                
+               <div id="contOthers">
+                  <input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor">
+                  <br>
+                  <a href="#" id="otherField"><span class="descripcion">AGREGAR OTRO</span></a>                  
+               </div>
+               <br>
+               <hr class="w3-border-grey" style="margin:auto;width:40%">
+               <br>
+               <a href="#" onclick="generarFacturaNoIntegrante()" style="margin-top: 10px" class="actions" id="generar">ENVIAR</a>
+            </div>
+         </div>
+      </div>
+   </body>
+</html>

@@ -2,6 +2,10 @@ body {
   background: #f2f2f2;
 }
 
+.noIntegranteFEDEAS {
+  display: none;
+}
+
 .display-middle {
   position: absolute;
   top: 50%;
