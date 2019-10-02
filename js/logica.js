@@ -66,7 +66,7 @@ function showBadCredentials() {
 
 function generate(action) {
 
-        if (validateCredentials()) {
+    if (validateCredentials()) {
         var mounthsSelected = $('.contmounths input:checked');
         var baseMailFactura = '<div style="font-size:16px; line-height:20px; color:#6c6c6c; background:#f2f2f2; padding:0; margin:0; font-family:Arial,sans-serif!important; width:100%!important"> <div style="padding:10px; max-width:400px; font-size:16px; line-height:22px; color:#6c6c6c; background:#f2f2f2; font-family:Arial,sans-serif!important; margin: 0 auto;"> <p style="padding:5px; text-align: center;"><img data-imagetype="External" src="https://i.imgur.com/z141PXF.png" alt="Logo E-DEAS" style="width: 30%;"> </p> <p style="padding:5px"><span style="color:#222; font-weight:bold;">Hola {{nameEmployee}}.</span> <br> <br> {{introduction}}  </p> {{detalleDeuda}} {{totalAPagar}} {{messageAfter}} <span style="font-size:12px; line-height:16px; font-style: italic;">Si esto es un error o si necesitas ayuda con los valores señalados puedes responder este correo o acércate a mi estación de trabajo.</span> <br> {{sectionQR}} <p style="padding:5px; font-weight: bold; font-style: italic; color: #222"> Gracias. <br> <span style="font-size: 13px;">Simón Bustamante Alzate (Administrador F-EDEAS).</span> </p> </div> </div>';
 
@@ -95,6 +95,7 @@ function generate(action) {
         var mailEmployee = infoEmployeeSelected[0];
         var nameEmployee = infoEmployeeSelected[1];
 
+        var medioDePago = $('#pagoPorQR').is(":checked") ? 'por transferencia QR.' : 'en efectivo.';
 
         if (mounthsSelected.length > 0) {
 
@@ -183,7 +184,7 @@ function generate(action) {
             } else {
 
                 introductionMessage = `Hemos registrado satisfactoriamente el pago de la cuenta que tenías pendiente con F-DEAS la fecha ${[today.getDate(),today.getMonth()+1,today.getFullYear()].join('/')}`;
-
+                introductionMessage += `<br><br> Usted realizó el pago ${medioDePago}`;
                 bodyMail = baseMailFactura
                     .replace('{{nameEmployee}}', nameEmployee)
                     .replace('{{introduction}}', introductionMessage)
@@ -196,8 +197,8 @@ function generate(action) {
 
             }
 
+            showSpinner(true);
 
-            debugger;
             Email.send({
                 Host: "smtp.gmail.com",
                 Username: _ma,
@@ -207,6 +208,7 @@ function generate(action) {
                 Subject: subject,
                 Body: bodyMail
             }).then(function(message) {
+                showSpinner(false);
                 if (message == 'OK') {
                     Swal.fire(
                         `Se envió correctamente la ${action} de ${nameEmployee}`,
@@ -262,6 +264,8 @@ function generarFacturaNoIntegrante(action) {
         var descriptionOtherFieldsValues = $('.descriptionOtherField');
         var valuesOtherFieldsValues = $('.valueOtherField');
 
+        var medioDePago = $('#pagoPorQR').is(":checked") ? 'por transferencia QR.' : 'en efectivo.';
+
         var chargeAccount = '';
         var total = 0;
 
@@ -294,7 +298,9 @@ function generarFacturaNoIntegrante(action) {
 
             subject = `<F-EDEAS> Cuota F-DEAS (${monthNames[today.getMonth()]})`;
         } else {
+
             introductionMessage = `Hemos registrado satisfactoriamente el pago de la cuenta que tenías pendiente con F-DEAS la fecha ${[today.getDate(),today.getMonth()+1,today.getFullYear()].join('/')}`;
+            introductionMessage += `<br><br> Usted realizó el pago ${medioDePago}`;
 
             bodyMail = baseMailFactura
                 .replace('{{total}}', total)
@@ -308,6 +314,8 @@ function generarFacturaNoIntegrante(action) {
             subject = `<F-DEAS> Constancia de pago F-EDEAS (${[today.getDate(),today.getMonth()+1,today.getFullYear()].join('/')})`;
         }
 
+        showSpinner(true);
+
         Email.send({
             Host: "smtp.gmail.com",
             Username: _ma,
@@ -317,6 +325,7 @@ function generarFacturaNoIntegrante(action) {
             Subject: subject,
             Body: bodyMail
         }).then(function(message) {
+            showSpinner(false);
             if (message == 'OK') {
                 Swal.fire(
                     `Se envió correctamente la factura de cobro a ${nameEmployee}`,
@@ -367,7 +376,8 @@ function sendMail() {
             .replace('{{nameEmployee}}', nameEmployee)
             .replace('{{introduction}}', body);
 
-        copyToClipboard(bodyMail);
+        // copyToClipboard(bodyMail);
+        showSpinner(true);
 
         Email.send({
             Host: "smtp.gmail.com",
@@ -378,6 +388,7 @@ function sendMail() {
             Subject: subject,
             Body: bodyMail
         }).then(function(message) {
+            showSpinner(false);
             if (message == 'OK') {
                 Swal.fire(
                     `¡Listo!`,
@@ -458,6 +469,11 @@ function agregarConcepto(action) {
 
 function deleteRow(idRow) {
     $('#' + idRow).remove();
+}
+
+function showSpinner(show) {
+    if (show) $('#spinner').show();
+    else $('#spinner').hide();
 }
 
 function clearInfo() {
