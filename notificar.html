@@ -4,6 +4,8 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.css" integrity="sha256-46qynGAkLSFpVbEBog43gvNhfrOj+BmwXdxFgVK/Kvc=" crossorigin="anonymous" />
+
 <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@8"></script>
 <script src="https://smtpjs.com/v3/smtp.js"></script>
@@ -37,7 +39,7 @@
                     <option class="integranteFEDEAS" value="miguel.henao@e-deas.com.co;;Miguel">Miguel</option>
                     <option class="noIntegranteFEDEAS" value="german.salazar@e-deas.com.co;;Germán">Germán</option>
                 </select>
-                <input id="checkSendMailAllEmployees" type="checkbox" name="todosEmpleados" value="notificarTodos"><span class="descripcion" style="font-weight: normal;">Todos</span><input id="checkSendMailNoIntegrantesFedeas" type="checkbox" name="noIntegrantesFedeas" class="checkNoEmployees"><span class="descripcion checkNoEmployees" style="font-weight: normal;">Otros</span>
+                <input id="checkSendMailAllEmployees" type="checkbox" name="todosEmpleados" value="notificarTodos" class="checkAllEmployees"><span class="descripcion checkAllEmployees" style="font-weight: normal;">Todos</span><input id="checkSendMailNoIntegrantesFedeas" type="checkbox" name="noIntegrantesFedeas" class="checkNoEmployees"><span class="descripcion checkNoEmployees" style="font-weight: normal;">Otros</span>
                 <br>
                 <br>
                 <div class="contmounths">
@@ -50,7 +52,7 @@
                 </div> -->
                 <br>
                 <hr class="w3-border-grey" style="margin:auto;width:40%"><br>
-                <a href="#" onclick="sendMail()" style="margin-top: 10px" class="actions" id="sendMail">ENVIAR</a>
+                <a href="#" onclick="sendMail()" style="margin-top: 10px" class="actions" id="sendMail">ENVIAR <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </div>
