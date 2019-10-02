@@ -185,7 +185,6 @@ function generate(action) {
                 introductionMessage = `Hemos registrado satisfactoriamente el pago de la cuenta que tenías pendiente con F-DEAS la fecha ${[today.getDate(),today.getMonth()+1,today.getFullYear()].join('/')}`;
 
                 bodyMail = baseMailFactura
-                    .replace('{{total}}', '$' + mounthsSelected.length * 15000)
                     .replace('{{nameEmployee}}', nameEmployee)
                     .replace('{{introduction}}', introductionMessage)
                     .replace('{{detalleDeuda}}', detalleDeudaFinal)
