@@ -21,8 +21,15 @@ function addEvents() {
 
     $('#checkSendMailAllEmployees').change(function() {
         _allSendMailAllEmployees = !_allSendMailAllEmployees;
-        if (_allSendMailAllEmployees) $('#empleadosList').hide();
-        else $('#empleadosList').show();
+        if (_allSendMailAllEmployees) {
+            $('#empleadosList').hide();
+            $('.checkNoEmployees').hide();
+
+        } else {
+            $('#empleadosList').show();
+            $('.checkNoEmployees').show();
+        }
+
     });
 
     $('#checkSendMailNoIntegrantesFedeas').change(function() {
@@ -98,28 +105,29 @@ function generate(action) {
             var sumaValuesResults = [];
             var restaValuesResults = [];
 
-            if ( sumaValuesDiv.length > 0) {
+            if (sumaValuesDiv.length > 0) {
                 $.each(sumaValuesDiv, function(i, rowSuma) {
-                   var inputsSumaXRow = $(rowSuma).find('input');
-                   totalASumar += parseFloat(inputsSumaXRow[1].value);
-                   resultOtherConceptsSumar += detalleBaseOtrosConceptos.replace('{{concepto}}', `${inputsSumaXRow[0].value}: ${parseFloat(inputsSumaXRow[1].value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`);
+                    var inputsSumaXRow = $(rowSuma).find('input');
+                    totalASumar += parseFloat(inputsSumaXRow[1].value);
+                    resultOtherConceptsSumar += detalleBaseOtrosConceptos.replace('{{concepto}}', `${inputsSumaXRow[0].value}: ${parseFloat(inputsSumaXRow[1].value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`);
                 });
 
-                resultOtherConceptsSumar = baseConceptForBody.replace('{{tituloConcepto}}', 'Detalle de valores adicionales pagados')
-                                                            .replace('{{total}}', '$' +  totalASumar.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
-                                                            .replace('{{listConceptos}}', resultOtherConceptsSumar);
+                resultOtherConceptsSumar = baseConceptForBody.replace('{{tituloConcepto}}', 'Detalle de valores adicionales')
+                    .replace('{{total}}', '$' + totalASumar.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+                    .replace('{{listConceptos}}', resultOtherConceptsSumar);
+
             }
 
-            if ( restaValuesDiv.length > 0) {
+            if (restaValuesDiv.length > 0) {
                 $.each(restaValuesDiv, function(i, rowResta) {
-                   var inputsRestarXRow = $(rowResta).find('input');
-                   totalARestar += parseFloat(inputsRestarXRow[1].value);
-                   resultOtherConceptsRestar += detalleBaseOtrosConceptos.replace('{{concepto}}', `${inputsRestarXRow[0].value}: ${parseFloat(inputsRestarXRow[1].value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`);
+                    var inputsRestarXRow = $(rowResta).find('input');
+                    totalARestar += parseFloat(inputsRestarXRow[1].value);
+                    resultOtherConceptsRestar += detalleBaseOtrosConceptos.replace('{{concepto}}', `${inputsRestarXRow[0].value}: ${parseFloat(inputsRestarXRow[1].value).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,')}`);
                 });
 
                 resultOtherConceptsRestar = baseConceptForBody.replace('{{tituloConcepto}}', 'Detalle deducción por valores adicionales')
-                                            .replace('{{total}}', '$' + totalARestar.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
-                                            .replace('{{listConceptos}}', resultOtherConceptsRestar);
+                    .replace('{{total}}', '$' + totalARestar.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,'))
+                    .replace('{{listConceptos}}', resultOtherConceptsRestar);
 
             }
 
@@ -164,8 +172,10 @@ function generate(action) {
                     .replace('{{total}}', total)
                     .replace('{{nameEmployee}}', nameEmployee)
                     .replace('{{introduction}}', introductionMessage)
-                    .replace('{{detalleDeuda}}', 'Detalle de la deuda actual')
+                    .replace('{{detalleDeuda}}', 'Detalle de los meses adeudados')
                     .replace('{{listMouths}}', listMouths)
+                    .replace('{{detalleConceptosASumar}}', resultOtherConceptsSumar ? resultOtherConceptsSumar : '')
+                    .replace('{{detalleConceptosARestar}}', resultOtherConceptsRestar ? resultOtherConceptsRestar : '')
                     .replace('{{messageAfter}}', messageAfter)
                     .replace('{{sectionQR}}', sectionQR);
 
@@ -414,29 +424,29 @@ function agregarConcepto(action) {
     if (action == "sumar") {
         _contSumaParejaOtrosValores++;
         var containerSumaValuesFields = $('#sumaValues');
-        var auxSuma = 'sumaPareja_'+_contSumaParejaOtrosValores; 
+        var auxSuma = 'sumaPareja_' + _contSumaParejaOtrosValores;
         if (containerSumaValuesFields.length > 0) {
-            $('#sumaValues').append('<div id="sumaPareja_'+_contSumaParejaOtrosValores+'"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`sumaPareja_'+_contSumaParejaOtrosValores+'`)"></i></div>');
+            $('#sumaValues').append('<div id="sumaPareja_' + _contSumaParejaOtrosValores + '"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`sumaPareja_' + _contSumaParejaOtrosValores + '`)"></i></div>');
         } else {
             $('.othersValues').show().append('<div id="sumaValues"><span class="resaltar">Cobrar otros conceptos:</span><br></div>');
-            $('#sumaValues').append('<div id="sumaPareja_'+_contSumaParejaOtrosValores+'"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`sumaPareja_'+_contSumaParejaOtrosValores+'`)"></i></div>');
+            $('#sumaValues').append('<div id="sumaPareja_' + _contSumaParejaOtrosValores + '"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`sumaPareja_' + _contSumaParejaOtrosValores + '`)"></i></div>');
         }
     } else {
         _contRestaParejaOtrosValores++;
         var containerRestaValuesFields = $('#restaValues');
-        var auxResta = 'restaPareja_'+_contSumaParejaOtrosValores; 
+        var auxResta = 'restaPareja_' + _contSumaParejaOtrosValores;
         if (containerRestaValuesFields.length > 0) {
-            $('#restaValues').append('<div id="restaPareja_'+_contRestaParejaOtrosValores+'"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`restaPareja_'+_contRestaParejaOtrosValores+'`)"></i></div>');
+            $('#restaValues').append('<div id="restaPareja_' + _contRestaParejaOtrosValores + '"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`restaPareja_' + _contRestaParejaOtrosValores + '`)"></i></div>');
         } else {
             $('.othersValues').show().append('<div id="restaValues"><span class="resaltar">Restar otros conceptos:</span><br></div>');
-            $('#restaValues').append('<div id="restaPareja_'+_contRestaParejaOtrosValores+'"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`restaPareja_'+_contRestaParejaOtrosValores+'`)"></i></div>');
+            $('#restaValues').append('<div id="restaPareja_' + _contRestaParejaOtrosValores + '"><input type="text" class="descriptionOtherField" placeholder="Descripción"> $<input type="number" class="valueOtherField" placeholder="Valor"><i class="far fa-trash-alt deleteRow" onclick="deleteRow(`restaPareja_' + _contRestaParejaOtrosValores + '`)"></i></div>');
         }
 
     }
 } // end agregarConcepto()
 
 function deleteRow(idRow) {
-    $('#'+idRow).remove();
+    $('#' + idRow).remove();
 }
 
 function clearInfo() {

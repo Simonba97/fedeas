@@ -22,7 +22,7 @@
             </p>
             <hr class="w3-border-grey" style="margin:auto;width:40%">
             <div id="contDetalle" style="padding:5px; color:#222; font-weight: bold">
-                <select id="empleadosList" >
+                <select id="empleadosList">
                     <option class="integranteFEDEAS" value="paula.campo@e-deas.com.co;;Paulita">Paulita</option>
                     <option class="integranteFEDEAS" value="patricia.parra@e-deas.com.co;;Patri">Patri</option>
                     <option class="integranteFEDEAS" value="alvaro.parra@e-deas.com.co;;Don Álvaro">Álvaro</option>
@@ -37,19 +37,19 @@
                     <option class="integranteFEDEAS" value="miguel.henao@e-deas.com.co;;Miguel">Miguel</option>
                     <option class="noIntegranteFEDEAS" value="german.salazar@e-deas.com.co;;Germán">Germán</option>
                 </select>
-                <input id="checkSendMailAllEmployees" type="checkbox" name="todosEmpleados" value="notificarTodos"><span class="descripcion" style="font-weight: normal;">Todos</span><input id="checkSendMailNoIntegrantesFedeas" type="checkbox" name="noIntegrantesFedeas" value="notificarTodos"><span class="descripcion" style="font-weight: normal;">Otros</span>
+                <input id="checkSendMailAllEmployees" type="checkbox" name="todosEmpleados" value="notificarTodos"><span class="descripcion" style="font-weight: normal;">Todos</span><input id="checkSendMailNoIntegrantesFedeas" type="checkbox" name="noIntegrantesFedeas" class="checkNoEmployees"><span class="descripcion checkNoEmployees" style="font-weight: normal;">Otros</span>
                 <br>
                 <br>
                 <div class="contmounths">
                     <input id="subjectMail" type="text" placeholder="Ingrese asunto">
-                    <textarea id="bodyMail" placeholder="Ingrese el comunicado que desea enviar"></textarea>    
+                    <textarea id="bodyMail" placeholder="Ingrese el comunicado que desea enviar"></textarea>
                 </div>
-       <!--          <div id="contOthers">
+                <!--          <div id="contOthers">
                     <a href="#">AGREGAR OTRO GASTO</a>
                     <input type="text" id="nameOther" placeholder="Descripción deuda"> <input type="text" id="valueOther" placeholder="Valor deuda">
                 </div> -->
-                <br><hr class="w3-border-grey" style="margin:auto;width:40%"><br>
-
+                <br>
+                <hr class="w3-border-grey" style="margin:auto;width:40%"><br>
                 <a href="#" onclick="sendMail()" style="margin-top: 10px" class="actions" id="sendMail">ENVIAR</a>
             </div>
         </div>
